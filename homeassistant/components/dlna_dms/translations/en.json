@@ -1,0 +1,28 @@
+{
+    "config": {
+        "abort": {
+            "no_devices_found": "No devices found on the network",
+            "single_instance_allowed": "Already configured. Only a single configuration possible."
+        },
+        "flow_title": "DLNA Digital Media Server: {name}",
+        "step": {
+            "confirm": {
+                "description": "Do you want to start set up?"
+            },
+            "select": {
+                "data": {
+                    "select_url": "Server description XML URL"
+                },
+                "description": "Run the setup again if you want to connect additional servers",
+                "title": "Select the media server that you wish to connect"
+            },
+            "user": {
+                "data": {
+                    "url": "URL"
+                },
+                "description": "Connect to a media server. If the device description XML URL is not set, auto-discovery is used"
+            }
+        }
+    },
+    "title": "DLNA Digital Media Server"
+}

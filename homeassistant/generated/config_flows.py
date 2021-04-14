@@ -52,6 +52,7 @@ FLOWS = [
     "dexcom",
     "dialogflow",
     "directv",
+    "dlna_dms",
     "doorbird",
     "dunehd",
     "dynalite",
