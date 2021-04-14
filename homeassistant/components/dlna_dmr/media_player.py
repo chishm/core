@@ -5,15 +5,21 @@ import asyncio
 from datetime import timedelta
 import functools
 import logging
+from typing import Optional
 
 import aiohttp
+
 from async_upnp_client import UpnpFactory
 from async_upnp_client.aiohttp import AiohttpNotifyServer, AiohttpSessionRequester
 from async_upnp_client.profiles.dlna import DeviceState, DmrDevice
-import voluptuous as vol
-
-from homeassistant.components.media_player import PLATFORM_SCHEMA, MediaPlayerEntity
+from homeassistant.components import media_source
+from homeassistant.components.media_player import (
+    PLATFORM_SCHEMA,
+    BrowseMedia, 
+    MediaPlayerEntity,
+)
 from homeassistant.components.media_player.const import (
+    SUPPORT_BROWSE_MEDIA,
     SUPPORT_NEXT_TRACK,
     SUPPORT_PAUSE,
     SUPPORT_PLAY,
@@ -40,6 +46,8 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 import homeassistant.helpers.config_validation as cv
 from homeassistant.util import get_local_ip
 import homeassistant.util.dt as dt_util
+import voluptuous as vol
+
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -51,6 +59,8 @@ DEFAULT_LISTEN_PORT = 8301
 CONF_LISTEN_IP = "listen_ip"
 CONF_LISTEN_PORT = "listen_port"
 CONF_CALLBACK_URL_OVERRIDE = "callback_url_override"
+
+DEFAULT_MEDIA_CONTENT_ID = "media-source://dlna_dms"
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     {
@@ -246,6 +256,10 @@ class DlnaDmrDevice(MediaPlayerEntity):
             supported_features |= SUPPORT_PLAY_MEDIA
         if self._device.has_seek_rel_time:
             supported_features |= SUPPORT_SEEK
+        # TODO: Enable this based on if dlna_dms has entities
+        # TODO: Maybe device_registry get_or_create ?
+        if "media_source" in self.hass.config.components:
+            supported_features |= SUPPORT_BROWSE_MEDIA
 
         return supported_features
 
@@ -402,3 +416,22 @@ class DlnaDmrDevice(MediaPlayerEntity):
     def unique_id(self) -> str:
         """Return an unique ID."""
         return self._device.udn
+    
+    async def async_browse_media(
+        self,
+        media_content_type: Optional[str] = None,
+        media_content_id: Optional[str] = None,
+    ) -> BrowseMedia:
+        """Implement the websocket media browsing helper.
+        
+        Browses all available DLNA Digital Media Servers by default.
+        """
+        # TODO: Pass through to async_browse_media
+        # TODO: If none, figure out content type from device
+        del media_content_type # unused
+
+        if not media_content_id:
+            media_content_id = DEFAULT_MEDIA_CONTENT_ID
+
+        result = await media_source.async_browse_media(self.hass, media_content_id)
+        return result
