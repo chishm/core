@@ -58,7 +58,7 @@ class LocalSource(MediaSource):
 
         return source_dir_id, location
 
-    async def async_resolve_media(self, item: MediaSourceItem) -> str:
+    async def async_resolve_media(self, item: MediaSourceItem) -> PlayMedia:
         """Resolve media to a url."""
         source_dir_id, location = self.async_parse_identifier(item)
         if source_dir_id == "" or source_dir_id not in self.hass.config.media_dirs:
