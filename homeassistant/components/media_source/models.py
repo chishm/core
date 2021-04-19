@@ -49,7 +49,9 @@ class MediaSourceItem:
     domain: str | None
     identifier: str
 
-    async def async_browse(self) -> BrowseMediaSource:
+    async def async_browse(
+        self, media_types: tuple[str] = MEDIA_MIME_TYPES
+    ) -> BrowseMediaSource:
         """Browse this item."""
         if self.domain is None:
             base = BrowseMediaSource(
@@ -76,7 +78,7 @@ class MediaSourceItem:
             ]
             return base
 
-        return await self.async_media_source().async_browse_media(self)
+        return await self.async_media_source().async_browse_media(self, media_types)
 
     async def async_resolve(self) -> PlayMedia:
         """Resolve to playable item."""
