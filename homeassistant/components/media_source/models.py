@@ -13,7 +13,7 @@ from homeassistant.components.media_player.const import (
 )
 from homeassistant.core import HomeAssistant, callback
 
-from .const import DOMAIN, URI_SCHEME, URI_SCHEME_REGEX
+from .const import DOMAIN, MEDIA_MIME_TYPES, URI_SCHEME, URI_SCHEME_REGEX
 
 
 @dataclass
@@ -117,7 +117,7 @@ class MediaSource(ABC):
         raise NotImplementedError
 
     async def async_browse_media(
-        self, item: MediaSourceItem, media_types: tuple[str]
+        self, item: MediaSourceItem, media_types: tuple[str] = MEDIA_MIME_TYPES
     ) -> BrowseMediaSource:
         """Browse media."""
         raise NotImplementedError
