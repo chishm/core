@@ -57,7 +57,7 @@ SERVICE_HANDLERS = {
     "nanoleaf_aurora": ("light", "nanoleaf"),
 }
 
-OPTIONAL_SERVICE_HANDLERS = {SERVICE_DLNA_DMR: ("media_player", "dlna_dmr")}
+OPTIONAL_SERVICE_HANDLERS = {}
 
 MIGRATED_SERVICE_HANDLERS = [
     SERVICE_APPLE_TV,
@@ -65,6 +65,7 @@ MIGRATED_SERVICE_HANDLERS = [
     "deconz",
     SERVICE_DAIKIN,
     "denonavr",
+    SERVICE_DLNA_DMR,
     "esphome",
     "google_cast",
     SERVICE_HASS_IOS_APP,

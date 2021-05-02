@@ -1,0 +1,52 @@
+{
+  "config": {
+    "flow_title": "DLNA DMR: {name}",
+    "step": {
+      "user": {
+        "title": "DLNA Digital Media Receiver",
+        "description": "Connect to your DLNA deivce. If the URL is not set, auto-discovery is used.",
+        "data": {
+          "url": "The URL to the device description XML file."
+        }
+      },
+      "select": {
+        "title": "DLNA Digital Media Receiver",
+        "description": "Select a discovered device",
+        "data": {
+          "url": "The URL to the device description XML file."
+        }
+      },
+      "confirm": {
+        "description": "[%key:common::config_flow::description::confirm_setup%]"
+      }
+    },
+    "abort": {
+      "already_configured": "[%key:common::config_flow::abort::already_configured_device%]",
+      "could_not_connect": "Failed to connect to DLNA device at given URL",
+      "discovery_error": "Failed to discover a DLNA Digital Media Receiver",
+      "incomplete_config": "Configuration is missing a required variable",
+      "non_unique_id": "Multiple devices found with the same unique ID",
+      "not_dmr": "Device is not a Digital Media Receiver"
+    },
+    "error": {
+      "could_not_connect": "Failed to connect to DLNA device at given URL",
+      "discovery_error": "Failed to discover a DLNA Digital Media Receiver",
+      "not_dmr": "Device is not a Digital Media Receiver"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "DLNA Digital Media Player",
+        "description": "Specify optional settings.",
+        "data": {
+          "listen_ip": "IP to listen on for events from the device. Only set this when the IP is not detected properly.",
+          "listen_port": "Specific port to listen on for events from the device. If not set, a random port is used.",
+          "callback_url_override": "Override the advertised callback URL. In case the Home Assistant is not directly reachable (e.g., running in a Docker container without bridged-networking), advertise this callback URL for events."
+        }
+      }
+    },
+    "error": {
+    }
+  }
+}
